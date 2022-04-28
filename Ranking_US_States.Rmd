@@ -1,8 +1,8 @@
 ---
 title: "RANKING US STATES ON A YEARLY BASIS AND ON 10 YEAR AVERAGE FROM 2011 TO 2020"
-author: "Beatrice & Moreen"
+author: "Moreen & Beatrice"
 date: "3/15/2022"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -1518,11 +1518,11 @@ summary(multiple_regression)
 
 
 
-## Accordind to the multiple regression model the 5 metrics used have an adjusted R value of 0.6088 implying that the metrics used in the project account for 60% of the weight in determination of a states rank and the remaining factors only account for 40%
+**According to the multiple regression model the 5 metrics used have an adjusted R value of 0.6088 implying that the metrics used in the project account for 60% of the weight in determination of a states rank and the remaining factors only account for 40%**
+  
+**At a p_value of 0.1, factors that have the most influence in determining the overall rank of a state from US best news ranks are economics,corrections, and education.**
 
-## At a p_value of 0.1, factors that have the most influence in determining the overall rank of a state from US best news ranks are economics,corrections, and education.
-
-## Below is our multiple regression model for these three important factors: economics, corrections, and education
+*Below is our multiple regression model for these three important factors: economics, corrections, and education*
 
 ```{r Multiple regression model for economics, corrections, and education}
 
@@ -1537,19 +1537,23 @@ summary(multiple_regression2)
 
 ```
 
+**After our second multiple regression model, we arrived at the following multiple regression equation**\
 
-## After our second multiple regression model, we arrived at the following multiple regression equation
-## We are going to simulate a model using this equation and plot the resulting model simulations below for each factor
+**We are going to simulate a model using this equation and plot the resulting model simulations below for each factor**
 
-## e stands for econmics, cor for corrections, and edu for education
-## y stand for overall ranking 
+**e stands for econmics, cor for corrections, and edu for education**
+**y stand for overall ranking** 
 
 ```{r model simulation and plotting }
+set.seed(100)
+# data vector
+n <- c(1:51)
 
-e <- sample(1:51, 1)  #Based on the 51 rankings for each state
-cor <-  sample(1:51, 1)
+e <- sample(n,10000, replace = TRUE) #Based on the 51 rankings for each state
 
-edu <- sample(1:51, 1)
+cor <-  sample(n,10000, replace = TRUE)
+
+edu <- sample(n, 10000, replace = TRUE)
 
 
 
@@ -1557,9 +1561,7 @@ y <- -1.378 + 0.518*e + 0.326*cor+ 0.216*edu +3.56170
 summary(y)
 
 #plotting economics versus overall rank as per the simulated model
-plot(e, y)
-
-
+plot(e, y, col = "blue")
 
 
 ```
@@ -1568,15 +1570,22 @@ plot(e, y)
 
 ```{r  plotting corrections versus overall rank as per the simulated model  }
 
-plot(cor, y)
+plot(cor, y,  col = "blue")
 
 ```
 
 
 ```{r plotting education versus overall rank as per the simulated model    }
 
-plot(edu, y)
+plot(edu, y, col = "blue")
 ```
+
+
+**The three plots above derived from our simulation further confirms that economics is has more influence on the ranking of a state and its values are more correlated to the rank of a state.**\
+
+**The plot on  education shows plots that are more widely distributed indicating the less correlation between its rank value and the overall rank of a state.**
+
+**Correction data on the other had seems to have a significant influence and correlation with a states rank but not as much as economics.**
 
 
 

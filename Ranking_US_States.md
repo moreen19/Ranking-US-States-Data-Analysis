@@ -1,7 +1,7 @@
 RANKING US STATES ON A YEARLY BASIS AND ON 10 YEAR AVERAGE FROM 2011 TO
 2020
 ================
-Beatrice & Moreen
+Moreen & Beatrice
 3/15/2022
 
 ## R Markdown
@@ -2621,22 +2621,11 @@ us_news_ranks
 
 ## Adding latitude and longitude variables for each state
 
-``` r
-states_mapinfo <- read_csv("states_mapinfo.csv")
-```
+{r Adding latitude and longitude variables for each state}
 
-    ## 
-    ## ── Column specification ────────────────────────────────────────────────────────
-    ## cols(
-    ##   States = col_character(),
-    ##   Latitude = col_double(),
-    ##   Longitude = col_double()
-    ## )
+states\_mapinfo &lt;- read\_csv(“states\_mapinfo.csv”)
 
-``` r
-Final <- Final %>% 
-  inner_join(states_mapinfo, by = "States")
-```
+Final &lt;- Final %&gt;% inner\_join(states\_mapinfo, by = “States”)
 
 ## preparing data to pass into map plotting function
 
@@ -2728,7 +2717,7 @@ index = sample(1:nrow(Final), 6,replace = TRUE)
 index
 ```
 
-    ## [1]  9 24 13 28 46 15
+    ## [1] 19 46 46 30  7 43
 
 ``` r
 Random_states <- Final[index,] 
@@ -2820,11 +2809,17 @@ summary(multiple_regression)
     ## Multiple R-squared:  0.6479, Adjusted R-squared:  0.6088 
     ## F-statistic: 16.56 on 5 and 45 DF,  p-value: 2.967e-09
 
-## Accordind to the multiple regression model the 5 metrics used have an adjusted R value of 0.6088 implying that the metrics used in the project account for 60% of the weight in determination of a states rank and the remaining factors only account for 40%
+**According to the multiple regression model the 5 metrics used have an
+adjusted R value of 0.6088 implying that the metrics used in the project
+account for 60% of the weight in determination of a states rank and the
+remaining factors only account for 40%**
 
-## At a p\_value of 0.1, factors that have the most influence in determining the overall rank of a state from US best news ranks are economics,corrections, and education.
+**At a p\_value of 0.1, factors that have the most influence in
+determining the overall rank of a state from US best news ranks are
+economics,corrections, and education.**
 
-## Below is our multiple regression model for these three important factors: economics, corrections, and education
+*Below is our multiple regression model for these three important
+factors: economics, corrections, and education*
 
 ``` r
 regression_rank_data2 <- regression_rank_data %>% 
@@ -2855,19 +2850,25 @@ summary(multiple_regression2)
     ## Multiple R-squared:  0.6311, Adjusted R-squared:  0.6076 
     ## F-statistic:  26.8 on 3 and 47 DF,  p-value: 2.967e-10
 
-## After our second multiple regression model, we arrived at the following multiple regression equation
+**After our second multiple regression model, we arrived at the
+following multiple regression equation**  
 
-## We are going to simulate a model using this equation and plot the resulting model simulations below for each factor
+**We are going to simulate a model using this equation and plot the
+resulting model simulations below for each factor**
 
-## e stands for econmics, cor for corrections, and edu for education
-
-## y stand for overall ranking
+**e stands for econmics, cor for corrections, and edu for education**
+**y stand for overall ranking**
 
 ``` r
-e <- sample(1:51, 1)  #Based on the 51 rankings for each state
-cor <-  sample(1:51, 1)
+set.seed(100)
+# data vector
+n <- c(1:51)
 
-edu <- sample(1:51, 1)
+e <- sample(n,10000, replace = TRUE) #Based on the 51 rankings for each state
+
+cor <-  sample(n,10000, replace = TRUE)
+
+edu <- sample(n, 10000, replace = TRUE)
 
 
 
@@ -2876,23 +2877,34 @@ summary(y)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   32.08   32.08   32.08   32.08   32.08   32.08
+    ##   3.892  22.687  29.925  29.778  36.785  55.592
 
 ``` r
 #plotting economics versus overall rank as per the simulated model
-plot(e, y)
+plot(e, y, col = "blue")
 ```
 
 ![](Ranking_US_States_files/figure-gfm/model%20simulation%20and%20plotting-1.png)<!-- -->
 
 ``` r
-plot(cor, y)
+plot(cor, y,  col = "blue")
 ```
 
 ![](Ranking_US_States_files/figure-gfm/plotting%20corrections%20versus%20overall%20rank%20as%20per%20the%20simulated%20model-1.png)<!-- -->
 
 ``` r
-plot(edu, y)
+plot(edu, y, col = "blue")
 ```
 
 ![](Ranking_US_States_files/figure-gfm/plotting%20education%20versus%20overall%20rank%20as%20per%20the%20simulated%20model-1.png)<!-- -->
+
+**The three plots above derived from our simulation further confirms
+that economics is has more influence on the ranking of a state and its
+values are more correlated to the rank of a state.**  
+
+**The plot on education shows plots that are more widely distributed
+indicating the less correlation between its rank value and the overall
+rank of a state.**
+
+**Correction data on the other had seems to have a significant influence
+and correlation with a states rank but not as much as economics.**
